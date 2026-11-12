@@ -14,6 +14,7 @@ import {
 } from "../lib/apiClient";
 import { LeaderboardModal } from "./LeaderboardModal";
 import { ProfessorNav } from "./ProfessorNav";
+import { StudentNav } from "./StudentNav";
 
 type HubState =
   | { status: "loading" }
@@ -135,53 +136,15 @@ export function ClassHub() {
 
   return (
     <div className="min-h-screen bg-[#0B1220] text-white flex flex-col justify-between selection:bg-sky-500/30">
-      {/* Top Bar: Uses shared ProfessorNav when logged in as a professor */}
+      {/* Top Bar: Role-specific navigation with brand, role nameplate, dashboard, and current class tabs */}
       {isProfessor() ? (
         <ProfessorNav
           currentClass={classId ? { id: classId, name: currentClassName } : null}
         />
       ) : (
-        <header className="px-4 sm:px-10 py-5 w-full max-w-5xl mx-auto flex items-center justify-between">
-          <Link
-            to="/"
-            className="inline-flex items-center gap-2.5 text-white hover:opacity-90 transition-opacity"
-          >
-            <div className="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center overflow-hidden shadow-sm">
-              <img
-                src="/assets/coursePulseLogo.png"
-                alt="CoursePulse"
-                className="w-full h-full object-cover"
-                onError={(e) => {
-                  e.currentTarget.style.display = "none";
-                  const fallback = e.currentTarget.parentElement?.querySelector(".class-fallback-icon");
-                  if (fallback) fallback.classList.remove("hidden");
-                }}
-              />
-              <svg
-                className="class-fallback-icon hidden w-5 h-5 text-white"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M2 12a10 10 0 0 1 18-6" />
-                <path d="M5 14a6 6 0 0 1 10-3" />
-                <path d="M8 16a2 2 0 0 1 2-1" />
-              </svg>
-            </div>
-            <span className="text-xl font-bold tracking-tight text-white">CoursePulse</span>
-          </Link>
-
-          {/* Back Link to All Classes (Student Hub) */}
-          <Link
-            to={backRoute}
-            className="text-xs sm:text-sm font-semibold text-slate-400 hover:text-white transition-colors cursor-pointer"
-          >
-            {backLabel}
-          </Link>
-        </header>
+        <StudentNav
+          currentClass={classId ? { id: classId, name: currentClassName } : null}
+        />
       )}
 
       {/* Main Container */}
