@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { request, getStudentDayStreak, isProfessor, type Lecture } from "../lib/apiClient";
+import { clearSession, request, getStudentDayStreak, isProfessor, type Lecture } from "../lib/apiClient";
 import { LeaderboardModal } from "./LeaderboardModal";
 import { ClassRankCard } from "./ClassRankCard";
 
@@ -177,12 +177,16 @@ export function StudentHub({ onSelectQuiz }: StudentHubProps = {}) {
         </Link>
 
         {/* Log out link matching mockups */}
-        <Link
-          to="/login"
+        <button
+          type="button"
+          onClick={() => {
+            clearSession();
+            navigate("/login");
+          }}
           className="text-sm font-semibold text-slate-300 hover:text-white transition-colors cursor-pointer"
         >
           Log out
-        </Link>
+        </button>
       </header>
 
       {/* Main Container */}

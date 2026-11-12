@@ -6,6 +6,7 @@ import { LandingPage } from "./components/LandingPage";
 import { ClassHub } from "./components/ClassHub";
 import { JoinClassPage } from "./components/JoinClassPage";
 import { ProfessorDashboard } from "./components/ProfessorDashboard";
+import { clearSession } from "./lib/apiClient";
 
 function AppContent() {
   const location = useLocation();
@@ -48,8 +49,7 @@ function AppContent() {
                 <button
                   type="button"
                   onClick={() => {
-                    sessionStorage.removeItem("coursepulse_token");
-                    sessionStorage.removeItem("coursepulse_role");
+                    clearSession();
                     navigate("/login");
                   }}
                   className="text-sm font-semibold text-slate-300 hover:text-white px-3 py-1.5 rounded-lg transition-colors cursor-pointer"

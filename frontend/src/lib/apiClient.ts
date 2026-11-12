@@ -237,6 +237,16 @@ export function getClassesRoute(): string {
   return isProfessor() ? "/professor" : "/hub";
 }
 
+/**
+ * Completely clears all stored session and authentication state.
+ */
+export function clearSession(): void {
+  sessionStorage.removeItem("coursepulse_token");
+  sessionStorage.removeItem("coursepulse_role");
+  sessionStorage.removeItem("coursepulse_user");
+}
+
+
 
 /**
  * Fetch the logged-in student's classes.
